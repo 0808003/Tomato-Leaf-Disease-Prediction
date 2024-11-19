@@ -84,6 +84,12 @@ st.markdown(
         background: linear-gradient(90deg, rgba(33,0,29,1) 0%, rgba(142,38,40,1) 51%, rgba(89,54,4,1) 100%);
         color: white;
     }
+    /* Sidebar background */
+    .sidebar .css-1d391kg {
+        background: rgb(33,0,29);
+        background: linear-gradient(90deg, rgba(33,0,29,1) 0%, rgba(142,38,40,1) 51%, rgba(89,54,4,1) 100%);
+        color: white;
+    }
     /* Content Area Styling */
     .header-title {
         font-size: 40px;
@@ -111,11 +117,6 @@ st.markdown(
         border-radius: 10px;
         font-size: 18px;
         font-weight: bold;
-        color: white;
-    }
-    /* Sidebar Styling */
-    .sidebar .css-1d391kg {
-        background-color: rgba(0, 0, 0, 0.4);
         color: white;
     }
     </style>
