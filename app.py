@@ -74,12 +74,6 @@ def predict(image, model):
     confidence = prediction[0][predicted_class_idx] * 100
     return class_names[predicted_class_idx], confidence
 
-# Function to determine text color based on theme
-def get_text_color():
-    if st.theme.get('primaryColor') == "#ffffff":  # Light mode
-        return "black"  # Dark text for light mode
-    return "white"  # Light text for dark mode
-
 # Add custom CSS for consistent gradient and readable content
 st.markdown(
     """
@@ -130,9 +124,9 @@ st.markdown(
 )
 
 # Streamlit UI
-st.markdown(f'<div class="header-title" style="color: {get_text_color()}">🍅 Tomato Plant Disease Classifier</div>', unsafe_allow_html=True)
+st.markdown('<div class="header-title">🍅 Tomato Plant Disease Classifier</div>', unsafe_allow_html=True)
 st.markdown(
-    f'<div class="subheader-title" style="color: {get_text_color()}">Compare predictions from EfficientNetB0 and MobileNetV2 models for enhanced insights!</div>',
+    '<div class="subheader-title">Compare predictions from EfficientNetB0 and MobileNetV2 models for enhanced insights!</div>',
     unsafe_allow_html=True,
 )
 
@@ -140,7 +134,7 @@ st.markdown(
 with st.sidebar:
     st.image("https://img.freepik.com/premium-photo/tomato-with-water-droplets-it-leaf-stem_927923-682.jpg")
     st.write(
-        f"""
+        """
         **How it works:**
         1. Upload an image of a tomato plant leaf.
         2. Choose a model to classify the disease.
@@ -174,7 +168,7 @@ if uploaded_file is not None:
         if model_option == "EfficientNetB0":
             with st.spinner("Classifying with EfficientNetB0..."):
                 pred_class, confidence = predict(image, efficientnet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Prediction Complete!")
             st.write(f"### **EfficientNetB0 Prediction:** {pred_class}")
             st.write(f"### **Confidence:** {confidence:.2f}%")
@@ -183,7 +177,7 @@ if uploaded_file is not None:
         elif model_option == "MobileNetV2":
             with st.spinner("Classifying with MobileNetV2..."):
                 pred_class, confidence = predict(image, mobilenet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Prediction Complete!")
             st.write(f"### **MobileNetV2 Prediction:** {pred_class}")
             st.write(f"### **Confidence:** {confidence:.2f}%")
@@ -193,7 +187,7 @@ if uploaded_file is not None:
             with st.spinner("Classifying with both models..."):
                 eff_pred_class, eff_confidence = predict(image, efficientnet_model)
                 mob_pred_class, mob_confidence = predict(image, mobilenet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Comparison Complete!")
             st.write(f"- **EfficientNetB0 Prediction:** {eff_pred_class} ({eff_confidence:.2f}%)")
             st.write(f"- **MobileNetV2 Prediction:** {mob_pred_class} ({mob_confidence:.2f}%)")
