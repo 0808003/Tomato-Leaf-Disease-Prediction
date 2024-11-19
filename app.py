@@ -74,55 +74,70 @@ def predict(image, model):
     confidence = prediction[0][predicted_class_idx] * 100
     return class_names[predicted_class_idx], confidence
 
-# Function to determine text color based on theme
-def get_text_color():
-    if st.theme.get('primaryColor') == "#ffffff":  # Light mode
-        return "black"  # Dark text for light mode
-    return "white"  # Light text for dark mode
-
-# Add custom CSS for consistent gradient and readable content
+# Add custom CSS for theme compatibility
 st.markdown(
     """
     <style>
     /* App Background */
     .stApp {
-        background: rgb(33,0,29);
-        background: linear-gradient(90deg, rgba(33,0,29,1) 0%, rgba(142,38,40,1) 51%, rgba(89,54,4,1) 100%);
-        color: white;
+        background: rgb(245, 245, 245); /* Light gray background for light mode */
+        background: linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(230,230,230,1) 50%, rgba(245,245,245,1) 100%);
+        color: black;
     }
-    /* Content Area Styling */
+    @media (prefers-color-scheme: dark) {
+        .stApp {
+            background: rgb(33,33,33); /* Dark gray background for dark mode */
+            background: linear-gradient(90deg, rgba(33,33,33,1) 0%, rgba(55,55,55,1) 50%, rgba(33,33,33,1) 100%);
+            color: white;
+        }
+    }
+    /* Header and Subheader Styling */
     .header-title {
         font-size: 40px;
         font-weight: bold;
         text-align: center;
         margin-bottom: 0.5em;
-        color: #FFD700; /* Gold header for visibility */
     }
     .subheader-title {
         font-size: 18px;
         text-align: center;
         margin-bottom: 1em;
-        color: #F5DEB3; /* Wheat subheader for visibility */
     }
+    /* Upload Section Styling */
     .upload-section {
-        border: 2px dashed white;
+        border: 2px dashed #ccc; /* Neutral border color */
         padding: 20px;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.9); /* Light transparent */
         border-radius: 10px;
     }
+    @media (prefers-color-scheme: dark) {
+        .upload-section {
+            border: 2px dashed #555; /* Dark border color */
+            background-color: rgba(0, 0, 0, 0.5); /* Dark transparent */
+        }
+    }
+    /* Prediction Section Styling */
     .prediction-section {
-        background-color: rgba(255, 255, 255, 0.3); /* Lightly transparent for visibility */
+        background-color: rgba(255, 255, 255, 0.9); /* Light transparent */
         padding: 20px;
         border-radius: 10px;
         font-size: 18px;
         font-weight: bold;
-        color: white;
+    }
+    @media (prefers-color-scheme: dark) {
+        .prediction-section {
+            background-color: rgba(0, 0, 0, 0.5); /* Dark transparent */
+        }
     }
     /* Sidebar Styling */
     .sidebar .css-1d391kg {
-        background-color: rgba(0, 0, 0, 0.4);
-        color: white;
+        background-color: rgba(240, 240, 240, 0.8); /* Light mode sidebar */
+    }
+    @media (prefers-color-scheme: dark) {
+        .sidebar .css-1d391kg {
+            background-color: rgba(30, 30, 30, 0.8); /* Dark mode sidebar */
+        }
     }
     </style>
     """,
@@ -130,9 +145,9 @@ st.markdown(
 )
 
 # Streamlit UI
-st.markdown(f'<div class="header-title" style="color: {get_text_color()}">🍅 Tomato Plant Disease Classifier</div>', unsafe_allow_html=True)
+st.markdown('<div class="header-title">🍅 Tomato Plant Disease Classifier</div>', unsafe_allow_html=True)
 st.markdown(
-    f'<div class="subheader-title" style="color: {get_text_color()}">Compare predictions from EfficientNetB0 and MobileNetV2 models for enhanced insights!</div>',
+    '<div class="subheader-title">Compare predictions from EfficientNetB0 and MobileNetV2 models for enhanced insights!</div>',
     unsafe_allow_html=True,
 )
 
@@ -140,7 +155,7 @@ st.markdown(
 with st.sidebar:
     st.image("https://img.freepik.com/premium-photo/tomato-with-water-droplets-it-leaf-stem_927923-682.jpg")
     st.write(
-        f"""
+        """
         **How it works:**
         1. Upload an image of a tomato plant leaf.
         2. Choose a model to classify the disease.
@@ -174,7 +189,7 @@ if uploaded_file is not None:
         if model_option == "EfficientNetB0":
             with st.spinner("Classifying with EfficientNetB0..."):
                 pred_class, confidence = predict(image, efficientnet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Prediction Complete!")
             st.write(f"### **EfficientNetB0 Prediction:** {pred_class}")
             st.write(f"### **Confidence:** {confidence:.2f}%")
@@ -183,7 +198,7 @@ if uploaded_file is not None:
         elif model_option == "MobileNetV2":
             with st.spinner("Classifying with MobileNetV2..."):
                 pred_class, confidence = predict(image, mobilenet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Prediction Complete!")
             st.write(f"### **MobileNetV2 Prediction:** {pred_class}")
             st.write(f"### **Confidence:** {confidence:.2f}%")
@@ -193,7 +208,7 @@ if uploaded_file is not None:
             with st.spinner("Classifying with both models..."):
                 eff_pred_class, eff_confidence = predict(image, efficientnet_model)
                 mob_pred_class, mob_confidence = predict(image, mobilenet_model)
-            st.markdown(f'<div class="prediction-section" style="color: {get_text_color()}">', unsafe_allow_html=True)
+            st.markdown('<div class="prediction-section">', unsafe_allow_html=True)
             st.success("Comparison Complete!")
             st.write(f"- **EfficientNetB0 Prediction:** {eff_pred_class} ({eff_confidence:.2f}%)")
             st.write(f"- **MobileNetV2 Prediction:** {mob_pred_class} ({mob_confidence:.2f}%)")
