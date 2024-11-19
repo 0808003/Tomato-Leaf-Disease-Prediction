@@ -74,70 +74,49 @@ def predict(image, model):
     confidence = prediction[0][predicted_class_idx] * 100
     return class_names[predicted_class_idx], confidence
 
-# Add custom CSS for theme compatibility
+# Add custom CSS for consistent gradient and readable content
 st.markdown(
     """
     <style>
     /* App Background */
     .stApp {
-        background: rgb(245, 245, 245); /* Light gray background for light mode */
-        background: linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(230,230,230,1) 50%, rgba(245,245,245,1) 100%);
-        color: black;
+        background: rgb(33,0,29);
+        background: linear-gradient(90deg, rgba(33,0,29,1) 0%, rgba(142,38,40,1) 51%, rgba(89,54,4,1) 100%);
+        color: white;
     }
-    @media (prefers-color-scheme: dark) {
-        .stApp {
-            background: rgb(33,33,33); /* Dark gray background for dark mode */
-            background: linear-gradient(90deg, rgba(33,33,33,1) 0%, rgba(55,55,55,1) 50%, rgba(33,33,33,1) 100%);
-            color: white;
-        }
-    }
-    /* Header and Subheader Styling */
+    /* Content Area Styling */
     .header-title {
         font-size: 40px;
         font-weight: bold;
         text-align: center;
         margin-bottom: 0.5em;
+        color: #FFD700; /* Gold header for visibility */
     }
     .subheader-title {
         font-size: 18px;
         text-align: center;
         margin-bottom: 1em;
+        color: #F5DEB3; /* Wheat subheader for visibility */
     }
-    /* Upload Section Styling */
     .upload-section {
-        border: 2px dashed #ccc; /* Neutral border color */
+        border: 2px dashed white;
         padding: 20px;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.9); /* Light transparent */
+        background-color: rgba(255, 255, 255, 0.2);
         border-radius: 10px;
     }
-    @media (prefers-color-scheme: dark) {
-        .upload-section {
-            border: 2px dashed #555; /* Dark border color */
-            background-color: rgba(0, 0, 0, 0.5); /* Dark transparent */
-        }
-    }
-    /* Prediction Section Styling */
     .prediction-section {
-        background-color: rgba(255, 255, 255, 0.9); /* Light transparent */
+        background-color: rgba(255, 255, 255, 0.3); /* Lightly transparent for visibility */
         padding: 20px;
         border-radius: 10px;
         font-size: 18px;
         font-weight: bold;
-    }
-    @media (prefers-color-scheme: dark) {
-        .prediction-section {
-            background-color: rgba(0, 0, 0, 0.5); /* Dark transparent */
-        }
+        color: white;
     }
     /* Sidebar Styling */
     .sidebar .css-1d391kg {
-        background-color: rgba(240, 240, 240, 0.8); /* Light mode sidebar */
-    }
-    @media (prefers-color-scheme: dark) {
-        .sidebar .css-1d391kg {
-            background-color: rgba(30, 30, 30, 0.8); /* Dark mode sidebar */
-        }
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
     }
     </style>
     """,
